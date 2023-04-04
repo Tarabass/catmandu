@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 
 interface NavbarItem {
 	text: string
@@ -17,12 +18,14 @@ const Navbar: FC<NavbarProps> = ({ title, items }) => {
 			<ul className="navbar-items">
 				{items.map((item: NavbarItem, index: number) => (
 					<li className="navbar-item" key={index}>
-						<a
-							className="navbar-item"
-							href={item.url}
+						<NavLink
+							className={({ isActive }) =>
+								isActive ? 'is-active' : ''
+							}
+							to={item.url}
 						>
 							{item.text}
-						</a>
+						</NavLink>
 					</li>
 				))}
 			</ul>
@@ -32,9 +35,7 @@ const Navbar: FC<NavbarProps> = ({ title, items }) => {
 	return (
 		<nav>
 			<h3 className="navbar-logo">
-				<a href="/">
-					{title}
-				</a>
+				<NavLink to="/">{title}</NavLink>
 			</h3>
 			{renderNavbarItems(items)}
 		</nav>
