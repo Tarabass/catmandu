@@ -1,13 +1,13 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 
-interface NavbarItem {
+type NavbarItem = {
 	text: string
 	url: string
 	target?: string
 }
 
-interface NavbarProps {
+type NavbarProps = {
 	title: string
 	items: Array<NavbarItem>
 }
