@@ -1,7 +1,13 @@
-import React from 'react';
+import Cats from '../components/Cats'
+import Filters from '../components/Filters'
 
 const Home = () => {
-    return <div>Home</div>;
+	return (
+		<>
+			<Filters />
+			<Cats />
+		</>
+	)
 }
 
-export default Home;
+export default Home
