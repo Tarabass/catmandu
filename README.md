@@ -49,10 +49,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 - Introduce SASS
 - Implement font icons
-- Introduce AXIOS
 - Implement matchRoutes with 404 handling (Miss)
 - Using Data API for routing (https://reactrouter.com/en/main/routers/picking-a-router, https://programmingarehard.com/2023/04/01/react-routers-data-utilities-are-awkward.html/)
 - Investicate forms using data api with data routing (https://reactrouter.com/en/main/components/form)
 - Defer search results so we are not spamming the API (https://reactrouter.com/en/main/utils/defer)
-- Investicate recoil is not an overkill for such a small app
   
