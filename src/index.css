@@ -144,3 +144,15 @@ small {
 .flexible {
 	flex-grow: 1;
 }
+
+.is-starred, .is-not-starred {
+	cursor: pointer;
+}
+
+.is-starred:after {
+	content: '\2605';
+}
+
+.is-not-starred:after {
+	content: '\2606';
+}

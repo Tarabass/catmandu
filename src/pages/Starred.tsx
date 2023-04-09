@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
-import starredCatsState from '../state/selectors/starredCatsState'
+import starredCatsSelector from '../state/selectors/starredCatsSelector'
 import { StarredCat } from '../types/types'
 
-const Starred: FC = () => {
-	const starredCats = useRecoilValue(starredCatsState)
+const Starred: FC = () => {	
+	const starredCats = useRecoilValue(starredCatsSelector)
 
 	return (
 		<div className="page">

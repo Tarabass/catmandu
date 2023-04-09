@@ -1,33 +1,103 @@
 import { FC } from 'react'
-import { Cat } from '../types/types'
+import { useRecoilState } from 'recoil'
+import axios from 'axios'
+import { Cat, StarredCat } from '../types/types'
+import starredCatsSelector from '../state/selectors/starredCatsSelector'
 
 type CatArticleProps = {
 	cat: Cat
 }
 
 const CatArticle: FC<CatArticleProps> = ({ cat }) => {
-	async function onClick() {
-		alert('Not yet implemented')
-		return
+	const [starredCats, setStarredCats] = useRecoilState(starredCatsSelector)
+	const starredCat: StarredCat | undefined = starredCats.find(
+		(starredCat) => starredCat.image_id === cat.id
+	)
+	const isStarred = !!starredCat
 
-		// try {
-		// 	await axios.post(
-		// 		`${process.env.REACT_APP_API_ENDPOINT}/favourites`,
-		// 		{
-		// 			image_id: cat.id,
-		// 			sub_id: process.env.REACT_APP_SUB_ID,
-		// 		},
-		// 		{
-		// 			headers: {
-		// 				'Content-Type': 'application/json',
-		// 				'x-api-key': `${process.env.REACT_APP_API_KEY}`,
-		// 			},
-		// 		}
-		// 	)
-		// } catch (error) {
-		// 	// Handle errors
-		// 	throw error
-		// }
+	async function onClick() {
+		try {
+			const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
+			const apiKey = process.env.REACT_APP_API_KEY
+			const subId = process.env.REACT_APP_SUB_ID
+
+			if (!isStarred) {
+				// Add cat to favourites
+				const response = await axios.post(
+					url,
+					{
+						image_id: cat.id,
+						sub_id: process.env.REACT_APP_SUB_ID,
+					},
+					{
+						headers: {
+							'Content-Type': 'application/json',
+							'x-api-key': apiKey,
+						},
+					}
+				)
+
+				// Get favourite and put in state
+				if (
+					response &&
+					response.status === 200 &&
+					response.statusText === 'OK'
+				) {
+					const newId = response.data && response.data.id
+
+					await axios
+						.get(url, {
+							headers: {
+								'Content-Type': 'application/json',
+								'x-api-key': apiKey,
+							},
+							params: {
+								favourite_id: newId,
+								sub_id: subId,
+								image_id: cat.id,
+							},
+						})
+						.then((res) => {
+							if (
+								res &&
+								res.status === 200 &&
+								res.statusText === 'OK'
+							) {
+								//@ts-ignore
+								setStarredCats((current) => [
+									...current,
+									res.data,
+								])
+							}
+						})
+				}
+			} else {
+				// Remove cat from favourites
+				await axios
+					.delete(`${url}/${starredCat.id}`, {
+						headers: {
+							'Content-Type': 'application/json',
+							'x-api-key': apiKey,
+						},
+					})
+					.then((res) => {
+						if (
+							res &&
+							res.status === 200 &&
+							res.statusText === 'OK'
+						) {
+							setStarredCats(() =>
+								starredCats.filter(
+									(cat) => cat.id !== starredCat.id
+								)
+							)
+						}
+					})
+			}
+		} catch (error) {
+			// Handle errors
+			throw error
+		}
 	}
 
 	return (
@@ -52,9 +122,10 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
                                     <small>Reading Time: 4min</small>
                                 </div> */}
 				<div className="card__footer">
-					<a className="pull" href="#" onClick={onClick}>
-						<small>Star</small>
-					</a>
+					<span
+						className={isStarred ? 'is-starred' : 'is-not-starred'}
+						onClick={onClick}
+					></span>
 					{/* <a className="push" href="#">
 						<small>Share</small>
 					</a> */}
