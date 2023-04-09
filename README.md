@@ -58,10 +58,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Introduce SASS
 - Implement font icons
 - Implement bootstrap, tailwind or other CSS framework or Styled Components (https://styled-components.com/docs/api)
-- component style definitions gebruiken
+- component style definitions gebruiken??
 - Implement matchRoutes with 404 handling (Miss)
 - Using Data API for routing? (https://reactrouter.com/en/main/routers/picking-a-router, https://programmingarehard.com/2023/04/01/react-routers-data-utilities-are-awkward.html/)
 - Investicate forms using data api with data routing (https://reactrouter.com/en/main/components/form)
 - Defer filter inputs so we are not spamming the API (https://reactrouter.com/en/main/utils/defer)
 - Error handling should be userfriendly
+- Fix TS ignore TODO's
   
