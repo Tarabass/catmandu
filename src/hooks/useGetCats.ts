@@ -11,6 +11,7 @@ import filterState from '../state/atoms/filterState'
 // category_ids	Comma delimited string	The IDs of the categories to filter the images. e.g. ?breed_ids=1,5,14	none
 // sub_id
 
+// TODO: Fix types and make typescript happy
 const useGetCats: Function = () => {
 	const [cats, setCats] = useState(Array<object>)
 	const [error, setError] = useState('')
@@ -22,7 +23,6 @@ const useGetCats: Function = () => {
 		const fetchData = async () => {
 			const url = `${process.env.REACT_APP_API_ENDPOINT}/images/search`
 			const apiKey = process.env.REACT_APP_API_KEY
-			// const subId = `${process.env.REACT_APP_SUB_ID}`
 
 			try {
 				await axios
@@ -35,18 +35,9 @@ const useGetCats: Function = () => {
 							limit: filter.limit,
 							page: filter.page,
 							order: filter.order,
-							has_breeds: true, //queryParameters.hasBreeds,
+							has_breeds: true,
 							breed_ids: filter.breed_ids || null,
-							// sub_id: queryParameters.subId
 						},
-						// params: {
-						// 	limit: queryParameters.limit,
-						// 	page: queryParameters.page - 1,
-						// 	order: queryParameters.order,
-						// 	has_breeds: true, //queryParameters.hasBreeds,
-						// 	breed_ids: queryParameters.breedIds?.toString(),
-						// 	// sub_id: queryParameters.subId
-						// },
 					})
 					.then((res) => {
 						setCats(res.data || [])
