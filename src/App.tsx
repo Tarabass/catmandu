@@ -1,4 +1,3 @@
-import React from 'react'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Upload from './pages/Upload'
@@ -16,14 +15,12 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Navbar title="Catmandu" items={navbarItems} />
-				<React.Suspense fallback={<div>Loading...</div>}>
-					<Routes>
-						<Route path="/" Component={Home}></Route>
-						<Route path="/Upload" Component={Upload}></Route>
-						<Route path="/starred" Component={Starred}></Route>
-						<Route path="*" element={<h1>Not found!</h1>} />
-					</Routes>
-				</React.Suspense>
+				<Routes>
+					<Route path="/" Component={Home}></Route>
+					<Route path="/Upload" Component={Upload}></Route>
+					<Route path="/starred" Component={Starred}></Route>
+					<Route path="*" element={<h1>Not found!</h1>} />
+				</Routes>
 			</BrowserRouter>
 		</>
 	)
