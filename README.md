@@ -65,4 +65,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Defer filter inputs so we are not spamming the API (https://reactrouter.com/en/main/utils/defer)
 - Error handling should be userfriendly
 - Fix TS ignore TODO's
+- Change flow of selector api call and hooks (investicate best practice)
   
