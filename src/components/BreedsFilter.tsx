@@ -14,7 +14,6 @@ const BreedsFilter: FC<FilterProps> = ({ field }) => {
 
 	return (
 		<div>
-			<label htmlFor={field}>{field.toUpperCase()}: </label>
 			<select
 				id={field}
 				name={field}
