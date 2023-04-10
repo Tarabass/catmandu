@@ -45,8 +45,28 @@ nav {
 
 .navbar-item a.is-active {
 	text-decoration: overline;
+	color: #d3de29;
 }
 /* //Navbar */
+
+/* Filters */
+.filters {
+	margin: 20px auto;
+	text-align: center;
+	display: flex;
+	width: 100%;
+	max-width: 960px;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+
+.filters div {
+	display: flex;
+	align-items: center;
+}
+/* //Filters */
 
 /* Page */
 .page {
@@ -89,10 +109,6 @@ small {
 	height: auto;
 }
 
-.card__wrap--inner {
-	padding: 12px;
-}
-
 .card__item {
 	padding: 12px 18px 12px 18px;
 }
@@ -102,9 +118,11 @@ small {
 }
 
 .card__footer {
-	padding: 18px;
+	padding: 4px;
 	overflow: hidden;
 	border-top: 1px solid #dedede;
+	background-color: #d3de29;
+	text-align: center;
 }
 
 /*Card Flex Code*/
@@ -120,6 +138,7 @@ small {
 	flex-direction: row;
 	flex-wrap: wrap;
 	width: 100%;
+	gap: 30px;
 }
 
 .card__wrap--inner {
@@ -145,7 +164,8 @@ small {
 	flex-grow: 1;
 }
 
-.is-starred, .is-not-starred {
+.is-starred,
+.is-not-starred {
 	cursor: pointer;
 }
 

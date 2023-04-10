@@ -6,7 +6,7 @@ import OrderFilter from './OrderFilter'
 
 const Filters: FC = () => {
 	return (
-		<div style={{ margin: '0 auto', textAlign: 'center' }}>
+		<div className='filters'>
 			<BreedsFilter field="breed_ids" />
 			<OrderFilter field="order" />
 			<LimitFilter field="limit" />
