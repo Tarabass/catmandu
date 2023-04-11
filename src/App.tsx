@@ -3,8 +3,10 @@ import Home from './pages/Home'
 import Upload from './pages/Upload'
 import Starred from './pages/Starred'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import useGetStarredCats from './hooks/useGetStarredCats'
 
 function App() {
+	useGetStarredCats()
 	const navbarItems = [
 		{ text: 'Home', url: '/' },
 		{ text: 'Upload', url: 'upload' },

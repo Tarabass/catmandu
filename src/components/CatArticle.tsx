@@ -13,9 +13,10 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
 	const starredCat: StarredCat | undefined = starredCats.find(
 		(starredCat) => starredCat.image_id === cat.id
 	)
-	const isStarred = !!starredCat
+	const isStarred = !!starredCat	
 
 	async function onClick() {
+		// TODO: Should we move this to the setter of the StarredCatsSelector??
 		try {
 			const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
 			const apiKey = process.env.REACT_APP_API_KEY
@@ -63,36 +64,36 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
 								res.status === 200 &&
 								res.statusText === 'OK'
 							) {
-								//@ts-ignore
 								setStarredCats((current) => [
 									...current,
-									res.data,
+									res.data[0],
 								])
 							}
 						})
 				}
 			} else {
 				// Remove cat from favourites
-				await axios
-					.delete(`${url}/${starredCat.id}`, {
-						headers: {
-							'Content-Type': 'application/json',
-							'x-api-key': apiKey,
-						},
-					})
-					.then((res) => {
-						if (
-							res &&
-							res.status === 200 &&
-							res.statusText === 'OK'
-						) {
-							setStarredCats(() =>
-								starredCats.filter(
-									(cat) => cat.id !== starredCat.id
+				if (starredCat)
+					await axios
+						.delete(`${url}/${starredCat.id}`, {
+							headers: {
+								'Content-Type': 'application/json',
+								'x-api-key': apiKey,
+							},
+						})
+						.then((res) => {
+							if (
+								res &&
+								res.status === 200 &&
+								res.statusText === 'OK'
+							) {
+								setStarredCats(() =>
+									starredCats.filter(
+										(cat) => cat.id !== starredCat.id
+									)
 								)
-							)
-						}
-					})
+							}
+						})
 			}
 		} catch (error) {
 			// Handle errors
