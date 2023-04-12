@@ -1,19 +1,20 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import axios from 'axios'
 import { Cat, StarredCat } from '../types/types'
 import starredCatsSelector from '../state/selectors/starredCatsSelector'
 
 type CatArticleProps = {
-	cat: Cat
+	cat: Cat,
+	isStarred: Boolean
 }
 
-const CatArticle: FC<CatArticleProps> = ({ cat }) => {
+const CatArticle: FC<CatArticleProps> = ({ cat, isStarred }) => {
 	const [starredCats, setStarredCats] = useRecoilState(starredCatsSelector)
 	const starredCat: StarredCat | undefined = starredCats.find(
 		(starredCat) => starredCat.image_id === cat.id
 	)
-	const isStarred = !!starredCat	
+	const [isStarredCat, setIsStarredCat] = useState(isStarred)	
 
 	async function onClick() {
 		// TODO: Should we move this to the setter of the StarredCatsSelector??
@@ -22,7 +23,9 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
 			const apiKey = process.env.REACT_APP_API_KEY
 			const subId = process.env.REACT_APP_SUB_ID
 
-			if (!isStarred) {
+			setIsStarredCat(!isStarredCat)
+
+			if (!isStarredCat) {
 				// Add cat to favourites
 				const response = await axios.post(
 					url,
@@ -96,6 +99,7 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
 						})
 			}
 		} catch (error) {
+			setIsStarredCat(isStarredCat)
 			// Handle errors
 			throw error
 		}
@@ -124,7 +128,7 @@ const CatArticle: FC<CatArticleProps> = ({ cat }) => {
                                 </div> */}
 				<div className="card__footer">
 					<span
-						className={isStarred ? 'is-starred' : 'is-not-starred'}
+						className={isStarredCat ? 'is-starred' : 'is-not-starred'}
 						onClick={onClick}
 					></span>
 					{/* <a className="push" href="#">
