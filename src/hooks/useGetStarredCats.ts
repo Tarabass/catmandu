@@ -1,31 +1,55 @@
 import { useState, useEffect } from 'react'
 import starredCatsState from './../state/atoms/starredCatsState'
-import { useSetRecoilState } from 'recoil'
-import axios from 'axios'
+import { useRecoilState } from 'recoil'
+import axios, { AxiosError, isAxiosError } from 'axios'
+import { StarredCat } from '../types/types'
 
-const useGetStarredCats = () => {
-	const [cats, setCats] = useState()
-	const setStarredCats = useSetRecoilState(starredCatsState)
+const useGetStarredCats: Function = () => {
+	const [starredCats, setStarredCats] = useState(Array<StarredCat>)
+	const [error, setError] = useState('')
+	const [isLoading, setIsLoading] = useState(true)
+	const [starredCatsFromState, setStarredCatsState] =
+		useRecoilState(starredCatsState)
 
 	useEffect(() => {
+		// If state contains already starred cats don't refetch them but use state instead
+		// TODO: Isn't this what a selector would provide for us out-of-the-box?
+		if (starredCatsFromState.length) {
+			setIsLoading(false)
+			setStarredCats(starredCatsFromState)
+			return
+		}
+
 		const fetchData = async () => {
+			const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
+			const apiKey = process.env.REACT_APP_API_KEY
+			const subId = process.env.REACT_APP_SUB_ID
+
 			try {
-				const res = await axios.get(
-					`${process.env.REACT_APP_API_ENDPOINT}/favourites`,
-					{
+				await axios
+					.get(url, {
 						headers: {
 							'Content-Type': 'application/json',
-							'x-api-key': process.env.REACT_APP_API_KEY,
+							'x-api-key': apiKey,
 						},
 						params: {
-							limit: 10,
-							sub_id: process.env.REACT_APP_SUB_ID,
+							sub_id: subId,
 						},
-					}
-				)
-				
-				setStarredCats(res.data || [])
-				setCats(res.data || [])
+					})
+					.then((res) => {
+						setStarredCatsState(res.data || [])
+						setStarredCats(res.data || [])
+					})
+					.catch((err: Error | AxiosError) => {
+						setError(
+							isAxiosError(err)
+								? err.response?.data.error
+								: 'Sorry, something went wrong'
+						)
+					})
+					.finally(() => {
+						setIsLoading(false)
+					})
 			} catch (error) {
 				// Handle errors
 				throw error
@@ -33,9 +57,9 @@ const useGetStarredCats = () => {
 		}
 
 		fetchData()
-	}, [setStarredCats])
+	}, [])
 
-	return { cats }
+	return [starredCats, error, isLoading]
 }
 
 export default useGetStarredCats

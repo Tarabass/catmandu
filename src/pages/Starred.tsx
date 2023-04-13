@@ -1,10 +1,25 @@
 import { FC } from 'react'
-import { useRecoilValue } from 'recoil'
-import starredCatsSelector from '../state/selectors/starredCatsSelector'
 import { StarredCat } from '../types/types'
+import useGetStarredCats from '../hooks/useGetStarredCats'
 
 const Starred: FC = () => {	
-	const starredCats = useRecoilValue(starredCatsSelector)
+	const [starredCats, error, isLoading] = useGetStarredCats()
+
+	if (isLoading) {
+		return (
+			<div className="page">
+				<div className="container">Loading..</div>
+			</div>
+		)
+	}
+
+	if (error) {
+		return (
+			<div className="page">
+				<div className="container">{error.message}</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className="page">
