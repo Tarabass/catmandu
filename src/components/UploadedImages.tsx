@@ -1,8 +1,15 @@
 import { FC } from 'react'
+import { UploadedCat } from '../types/types'
 
-// TODO: Make typescript happy
-// @ts-ignore
-const UploadedImages: FC = ({ images, isLoading }) => {
+type UploadedImagesProps = {
+	uploadedImages: Array<UploadedCat>
+	isLoading: Boolean
+}
+
+const UploadedImages: FC<UploadedImagesProps> = ({
+	uploadedImages,
+	isLoading,
+}) => {
 	if (isLoading) {
 		return <div>Fetching images..</div>
 	}
@@ -10,22 +17,20 @@ const UploadedImages: FC = ({ images, isLoading }) => {
 	if (!isLoading) {
 		return (
 			<div>
-				{
-					// TODO: Make typescript happy
-					// @ts-ignore
-					images.map((image) => (
-						<img
-							key={image.id}
-							alt=""
-							width="10%"
-							height="10%"
-							src={image.url}
-						/>
-					))
-				}
+				{uploadedImages.map((image) => (
+					<img
+						key={image.id}
+						alt=""
+						width="10%"
+						height="10%"
+						src={image.url}
+					/>
+				))}
 			</div>
 		)
 	}
+
+	return null
 }
 
 export default UploadedImages

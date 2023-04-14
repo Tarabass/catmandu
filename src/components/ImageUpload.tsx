@@ -2,13 +2,9 @@ import React, { FC, useState } from 'react'
 import axios from 'axios'
 
 type ImageUploadProps = {
-	onUploadSuccess:
-		| (() => void)
-		| (() => { uploadedImages: never[]; loading: boolean })
+	onUploadSuccess: () => void
 }
 
-// TODO: Make typescript happy
-// @ts-ignore
 const ImageUpload: FC<ImageUploadProps> = ({ onUploadSuccess }) => {
 	const [selectedFile, setSelectedFile] = useState<string | Blob>(new Blob())
 	const [isSelected, setIsSelected] = useState(false)
@@ -76,6 +72,8 @@ const ImageUpload: FC<ImageUploadProps> = ({ onUploadSuccess }) => {
 			</div>
 		)
 	}
+
+	return null
 }
 
 export default ImageUpload
