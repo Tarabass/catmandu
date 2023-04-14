@@ -2,12 +2,12 @@
 
 It is __*really important*__ that you first create an `.env` file in de **root** of your project before running `npm start`. This app is heavily depending on the environment variables declared in this file.
 
-The `.env` file should contain the following variables where your own api key should be provided:
+The `.env` file should contain the following variables where your own api key and sub_id should be provided:
 
 ```
 REACT_APP_API_ENDPOINT = https://api.thecatapi.com/v1
 REACT_APP_API_KEY =[DEMO-API-KEY]
-REACT_APP_SUB_ID = tocatmanduornot
+REACT_APP_SUB_ID = [MY-SUB-ID]
 ```
 
 ## Available Scripts
