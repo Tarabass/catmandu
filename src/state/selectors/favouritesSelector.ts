@@ -1,6 +1,6 @@
 import { selector } from 'recoil'
-import { Favourite } from './../../types/types'
-import favouriteImagesState from '../atoms/starredCatsState'
+import { Favourite } from '../../types/types'
+import favouritesState from '../atoms/favouritesState'
 
 /**
  * Be aware that Recoil will cache your selector values, so asynchronous
@@ -13,11 +13,11 @@ import favouriteImagesState from '../atoms/starredCatsState'
  * We don't want it to be cached but update the favourites everytime the
  * page is loaded
  */
-const favouriteImagesSelector = selector<Array<Favourite>>({
-	key: 'favouriteImagesSelector',
+const favouritesSelector = selector<Array<Favourite>>({
+	key: 'favouritesSelector',
 	get: async ({ get }) => {
 		// TODO: Feels like an hack to update the state and components because we are not using the atom anywhere
-		return get(favouriteImagesState)
+		return get(favouritesState)
 
 		// const fetchData = async () => {
 		// 	try {
@@ -46,8 +46,8 @@ const favouriteImagesSelector = selector<Array<Favourite>>({
 		// return fetchData()
 	},
 	set: ({ set /*, get , reset*/ }, val) => {
-		set(favouriteImagesState, val)
+		set(favouritesState, val)
 	},
 })
 
-export default favouriteImagesSelector
+export default favouritesSelector

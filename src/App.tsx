@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Upload from './pages/Upload'
-import Favourites from './pages/Starred'
+import Favourites from './pages/Favourites'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {

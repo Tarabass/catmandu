@@ -1,12 +1,12 @@
 import { useSetRecoilState, useRecoilValue } from 'recoil'
-import favouriteImagesSelector from '../state/selectors/starredCatsSelector'
+import favouritesSelector from '../state/selectors/favouritesSelector'
 import { Favourite } from '../types/types'
 import axios, { AxiosResponse } from 'axios'
 
 const useSetImageFavourite: Function = () => {
-	const setFavouriteImages = useSetRecoilState(favouriteImagesSelector)
+	const setFavourites = useSetRecoilState(favouritesSelector)
 	// TODO: We should use a recoil callback here to get values without subscribing to the component
-	const favouriteImages = useRecoilValue(favouriteImagesSelector)
+	const favourites = useRecoilValue(favouritesSelector)
 
 	const updateImage = async (imageId: String, isFavourite: Boolean) => {
 		const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
@@ -57,7 +57,7 @@ const useSetImageFavourite: Function = () => {
 								res.status === 200 &&
 								res.statusText === 'OK'
 							) {
-								setFavouriteImages((current) => [
+								setFavourites((current) => [
 									...current,
 									res.data[0],
 								])
@@ -68,7 +68,7 @@ const useSetImageFavourite: Function = () => {
 				}
 			} else {
 				const favouriteImage: Favourite | undefined =
-					favouriteImages.find(
+					favourites.find(
 						(favouriteImage) => favouriteImage.image_id === imageId
 					)
 
@@ -87,8 +87,8 @@ const useSetImageFavourite: Function = () => {
 								res.status === 200 &&
 								res.statusText === 'OK'
 							) {
-								setFavouriteImages(() =>
-									favouriteImages.filter(
+								setFavourites(() =>
+									favourites.filter(
 										(image) =>
 											image.id !== favouriteImage.id
 									)

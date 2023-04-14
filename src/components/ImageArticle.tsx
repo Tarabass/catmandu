@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Image } from '../types/types'
-import useSetImageFavourite from '../hooks/useSetCatStarred'
+import useSetImageFavourite from '../hooks/useSetFavourites'
 
 type ImageArticleProps = {
 	image: Image

@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import useGetImages from '../hooks/useGetCats'
+import useGetImages from '../hooks/useGetImages'
 import { Image, Favourite } from '../types/types'
-import ImageArticle from './CatArticle'
-import useGetFavouriteImages from '../hooks/useGetStarredCats'
+import ImageArticle from './ImageArticle'
+import useGetFavourites from '../hooks/useGetFavourites'
 
 const Images: FC = () => {
 	const [images] = useGetImages()
-	const [favouriteImages, error, isLoading] = useGetFavouriteImages()
+	const [favourites, error, isLoading] = useGetFavourites()
 
 	if (isLoading) {
 		return (
@@ -33,9 +33,9 @@ const Images: FC = () => {
 							<ImageArticle
 								key={image.id}
 								image={image}
-								isFavourite={favouriteImages.some(
-									(favouriteImage: Favourite) =>
-										favouriteImage.image_id === image.id
+								isFavourite={favourites.some(
+									(favourite: Favourite) =>
+										favourites.image_id === image.id
 								)}
 							/>
 						))}

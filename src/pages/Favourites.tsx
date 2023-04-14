@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Favourite } from '../types/types'
-import useGetFavouriteImages from '../hooks/useGetStarredCats'
+import useGetFavourites from '../hooks/useGetFavourites'
 
 const Favourites: FC = () => {
-	const [favouriteImages, error, isLoading] = useGetFavouriteImages()
+	const [favourites, error, isLoading] = useGetFavourites()
 
 	if (isLoading) {
 		return (
@@ -25,15 +25,15 @@ const Favourites: FC = () => {
 		<div className="page">
 			<div className="container">
 				<section className="card__wrap--outer">
-					{favouriteImages.map((favouriteImage: Favourite) => (
+					{favourites.map((favourite: Favourite) => (
 						<article
 							className="card__wrap--inner"
-							key={favouriteImage.id}
+							key={favourite.id}
 						>
 							<div className="card">
 								<img
 									alt=""
-									src={favouriteImage.image.url}
+									src={favourite.image.url}
 									width="10%"
 									height="10%"
 								/>

@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
-import favouriteImagesState from './../state/atoms/starredCatsState'
+import favouritesState from '../state/atoms/favouritesState'
 import { useRecoilState } from 'recoil'
 import axios, { AxiosError, isAxiosError } from 'axios'
 import { Favourite } from '../types/types'
 
-const useGetFavouriteImages: Function = () => {
-	const [favouriteImages, setFavouriteImages] = useState(Array<Favourite>)
+const useGetFavourites: Function = () => {
+	const [favourites, setFavourites] = useState(Array<Favourite>)
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
-	const [favouriteImagesFromState, setFavouriteImagesState] =
-		useRecoilState(favouriteImagesState)
+	const [favouritesFromState, setFavouritesState] =
+		useRecoilState(favouritesState)
 
 	useEffect(() => {
 		// If state contains already favourites don't refetch them but use state instead
 		// TODO: Isn't this what a selector would provide for us out-of-the-box?
-		if (favouriteImagesFromState.length) {
+		if (favouritesFromState.length) {
 			setIsLoading(false)
-			setFavouriteImages(favouriteImagesFromState)
+			setFavourites(favouritesFromState)
 			return
 		}
 
@@ -37,8 +37,8 @@ const useGetFavouriteImages: Function = () => {
 						},
 					})
 					.then((res) => {
-						setFavouriteImagesState(res.data || [])
-						setFavouriteImages(res.data || [])
+						setFavouritesState(res.data || [])
+						setFavourites(res.data || [])
 					})
 					.catch((err: Error | AxiosError) => {
 						setError(
@@ -60,7 +60,7 @@ const useGetFavouriteImages: Function = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	return [favouriteImages, error, isLoading]
+	return [favourites, error, isLoading]
 }
 
-export default useGetFavouriteImages
+export default useGetFavourites

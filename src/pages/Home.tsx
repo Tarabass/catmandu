@@ -1,4 +1,4 @@
-import Images from '../components/Cats'
+import Images from '../components/Images'
 import Filters from '../components/Filters'
 
 const Home = () => {
