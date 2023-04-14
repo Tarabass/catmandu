@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import useGetCats from '../hooks/useGetCats'
-import { Cat, StarredCat } from '../types/types'
-import CatArticle from './CatArticle'
-import useGetStarredCats from '../hooks/useGetStarredCats'
+import useGetImages from '../hooks/useGetCats'
+import { Image, Favourite } from '../types/types'
+import ImageArticle from './CatArticle'
+import useGetFavouriteImages from '../hooks/useGetStarredCats'
 
-const Cats: FC = () => {
-	const [cats] = useGetCats()
-	const [starredCats, error, isLoading] = useGetStarredCats()
+const Images: FC = () => {
+	const [images] = useGetImages()
+	const [favouriteImages, error, isLoading] = useGetFavouriteImages()
 
 	if (isLoading) {
 		return (
@@ -29,8 +29,15 @@ const Cats: FC = () => {
 			<div className="container">
 				<section className="card__wrap--outer">
 					<React.Suspense fallback={<div>Loading...</div>}>
-						{cats.map((cat: Cat) => (
-							<CatArticle key={cat.id} cat={cat} isStarred={starredCats.some(((starredCat: StarredCat) => starredCat.image_id === cat.id))} />
+						{images.map((image: Image) => (
+							<ImageArticle
+								key={image.id}
+								image={image}
+								isFavourite={favouriteImages.some(
+									(favouriteImage: Favourite) =>
+										favouriteImage.image_id === image.id
+								)}
+							/>
 						))}
 					</React.Suspense>
 				</section>
@@ -39,4 +46,4 @@ const Cats: FC = () => {
 	)
 }
 
-export default Cats
+export default Images

@@ -1,11 +1,11 @@
 import { atom } from 'recoil'
-import { StarredCat } from '../../types/types'
+import { Favourite } from '../../types/types'
 
-type StarredCats = Array<StarredCat>
+type Favourites = Array<Favourite>
 
-const starredCatsState = atom<StarredCats>({
-	key: 'starredCatsState',
-	default: new Array<StarredCat>(),
+const favouritesState = atom<Favourites>({
+	key: 'favouritesState',
+	default: new Array<Favourite>(),
 })
 
-export default starredCatsState
+export default favouritesState

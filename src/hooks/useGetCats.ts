@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import axios, { AxiosError, isAxiosError } from 'axios'
 import filterState from '../state/atoms/filterState'
+import { Image } from './../types/types'
 
 // limit	1-100	Number of images to return between	1
 // page	0-n	The page number to use when Paginating through the images	0
@@ -12,8 +13,8 @@ import filterState from '../state/atoms/filterState'
 // sub_id
 
 // TODO: Fix types and make typescript happy
-const useGetCats: Function = () => {
-	const [cats, setCats] = useState(Array<object>)
+const useGetImages: Function = () => {
+	const [images, setImages] = useState(Array<Image>)
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
 	const filter = useRecoilValue(filterState)
@@ -40,7 +41,7 @@ const useGetCats: Function = () => {
 						},
 					})
 					.then((res) => {
-						setCats(res.data || [])
+						setImages(res.data || [])
 
 						localStorage.setItem(
 							'count',
@@ -69,7 +70,7 @@ const useGetCats: Function = () => {
 		fetchData()
 	}, [filter])
 
-	return [cats, error, isLoading]
+	return [images, error, isLoading]
 }
 
-export default useGetCats
+export default useGetImages

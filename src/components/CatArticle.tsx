@@ -1,41 +1,41 @@
 import { FC, useState } from 'react'
-import { Cat } from '../types/types'
-import useSetCatStarred from '../hooks/useSetCatStarred'
+import { Image } from '../types/types'
+import useSetImageFavourite from '../hooks/useSetCatStarred'
 
-type CatArticleProps = {
-	cat: Cat
-	isStarred: Boolean
+type ImageArticleProps = {
+	image: Image
+	isFavourite: Boolean
 }
 
-const CatArticle: FC<CatArticleProps> = ({ cat, isStarred }) => {
-	const [isStarredCat, setIsStarredCat] = useState(isStarred)
-	const setCatStarred = useSetCatStarred()
+const ImageArticle: FC<ImageArticleProps> = ({ image, isFavourite }) => {
+	const [isFavouriteImage, setIsFavouriteImage] = useState(isFavourite)
+	const setImageFavourite = useSetImageFavourite()
 
 	const onClick = () => {
-		setIsStarredCat(!isStarredCat)
+		setIsFavouriteImage(!isFavouriteImage)
 
-		setCatStarred(cat.id, isStarredCat)
+		setImageFavourite(image.id, isFavouriteImage)
 			.then((res: Object) => console.log('res', res))
 			.catch((err: String) => {
 				console.log('err', err)
-				setIsStarredCat(isStarredCat)
+				setIsFavouriteImage(isFavouriteImage)
 			})
 	}
 
 	return (
-		<article className="card__wrap--inner" key={cat.id}>
+		<article className="card__wrap--inner" key={image.id}>
 			<div className="card">
 				<img
 					alt=""
-					src={cat.url}
-					width={cat.width / 2}
-					height={cat.height / 2}
+					src={image.url}
+					width={image.width / 2}
+					height={image.height / 2}
 				/>
 				<div className="card__item flexible"></div>
 				<div className="card__footer">
 					<span
 						className={
-							isStarredCat ? 'is-starred' : 'is-not-starred'
+							isFavouriteImage ? 'is-favourite' : 'is-not-favourite'
 						}
 						onClick={onClick}
 					></span>
@@ -45,4 +45,4 @@ const CatArticle: FC<CatArticleProps> = ({ cat, isStarred }) => {
 	)
 }
 
-export default CatArticle
+export default ImageArticle
