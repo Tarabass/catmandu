@@ -67,15 +67,15 @@ const useSetImageFavourite: Function = () => {
 						})
 				}
 			} else {
-				const favouriteImage: Favourite | undefined =
+				const favourite: Favourite | undefined =
 					favourites.find(
-						(favouriteImage) => favouriteImage.image_id === imageId
+						(favourite) => favourite.image_id === imageId
 					)
 
 				// Remove image from favourites
-				if (favouriteImage)
+				if (favourite)
 					await axios
-						.delete(`${url}/${favouriteImage.id}`, {
+						.delete(`${url}/${favourite.id}`, {
 							headers: {
 								'Content-Type': 'application/json',
 								'x-api-key': apiKey,
@@ -90,7 +90,7 @@ const useSetImageFavourite: Function = () => {
 								setFavourites(() =>
 									favourites.filter(
 										(image) =>
-											image.id !== favouriteImage.id
+											image.id !== favourite.id
 									)
 								)
 
