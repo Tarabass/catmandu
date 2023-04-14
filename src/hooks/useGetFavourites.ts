@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
-import starredCatsState from './../state/atoms/starredCatsState'
+import favouritesState from '../state/atoms/favouritesState'
 import { useRecoilState } from 'recoil'
 import axios, { AxiosError, isAxiosError } from 'axios'
-import { StarredCat } from '../types/types'
+import { Favourite } from '../types/types'
 
-const useGetStarredCats: Function = () => {
-	const [starredCats, setStarredCats] = useState(Array<StarredCat>)
+const useGetFavourites: Function = () => {
+	const [favourites, setFavourites] = useState(Array<Favourite>)
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
-	const [starredCatsFromState, setStarredCatsState] =
-		useRecoilState(starredCatsState)
+	const [favouritesFromState, setFavouritesState] =
+		useRecoilState(favouritesState)
 
 	useEffect(() => {
-		// If state contains already starred cats don't refetch them but use state instead
+		// If state contains already favourites don't refetch them but use state instead
 		// TODO: Isn't this what a selector would provide for us out-of-the-box?
-		if (starredCatsFromState.length) {
+		if (favouritesFromState.length) {
 			setIsLoading(false)
-			setStarredCats(starredCatsFromState)
+			setFavourites(favouritesFromState)
 			return
 		}
 
@@ -37,8 +37,8 @@ const useGetStarredCats: Function = () => {
 						},
 					})
 					.then((res) => {
-						setStarredCatsState(res.data || [])
-						setStarredCats(res.data || [])
+						setFavouritesState(res.data || [])
+						setFavourites(res.data || [])
 					})
 					.catch((err: Error | AxiosError) => {
 						setError(
@@ -57,9 +57,10 @@ const useGetStarredCats: Function = () => {
 		}
 
 		fetchData()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	return [starredCats, error, isLoading]
+	return [favourites, error, isLoading]
 }
 
-export default useGetStarredCats
+export default useGetFavourites

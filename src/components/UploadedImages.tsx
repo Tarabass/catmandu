@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { UploadedCat } from '../types/types'
+import { UploadedImage } from '../types/types'
 
 type UploadedImagesProps = {
-	uploadedImages: Array<UploadedCat>
+	uploadedImages: Array<UploadedImage>
 	isLoading: Boolean
 }
 

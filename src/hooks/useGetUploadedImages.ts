@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react'
 import axios from 'axios'
-import { UploadedCat } from '../types/types'
+import { UploadedImage } from '../types/types'
 
 const useGetUploadedImages: Function = () => {
-	const [uploadedImages, setUploadedImages] = useState<Array<UploadedCat>>([])
+	const [uploadedImages, setUploadedImages] = useState<Array<UploadedImage>>([])
 	const [loading, setLoadingState] = useState(true)
 
 	const refetch = useCallback(() => {

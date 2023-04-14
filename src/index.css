@@ -155,7 +155,6 @@ small {
 
 @media (min-width: 1024px) {
 	.card__wrap--inner {
-		/* width: 33.33%; */
 		width: 17.5%;
 	}
 }
@@ -164,15 +163,15 @@ small {
 	flex-grow: 1;
 }
 
-.is-starred,
-.is-not-starred {
+.is-favourite,
+.is-not-favourite {
 	cursor: pointer;
 }
 
-.is-starred:after {
+.is-favourite:after {
 	content: '\2605';
 }
 
-.is-not-starred:after {
+.is-not-favourite:after {
 	content: '\2606';
 }

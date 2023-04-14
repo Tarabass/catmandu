@@ -1,6 +1,6 @@
 import { selector } from 'recoil'
-import { StarredCat } from './../../types/types'
-import starredCatsState from '../atoms/starredCatsState'
+import { Favourite } from '../../types/types'
+import favouritesState from '../atoms/favouritesState'
 
 /**
  * Be aware that Recoil will cache your selector values, so asynchronous
@@ -10,14 +10,14 @@ import starredCatsState from '../atoms/starredCatsState'
  *
  * TODO: Should we move this to a react use instead of using a state selector??
  *
- * We don't want it to be cached but update the starred cats everytime the
+ * We don't want it to be cached but update the favourites everytime the
  * page is loaded
  */
-const starredCatsSelector = selector<Array<StarredCat>>({
-	key: 'starredCatsSelector',
+const favouritesSelector = selector<Array<Favourite>>({
+	key: 'favouritesSelector',
 	get: async ({ get }) => {
 		// TODO: Feels like an hack to update the state and components because we are not using the atom anywhere
-		return get(starredCatsState)
+		return get(favouritesState)
 
 		// const fetchData = async () => {
 		// 	try {
@@ -46,8 +46,8 @@ const starredCatsSelector = selector<Array<StarredCat>>({
 		// return fetchData()
 	},
 	set: ({ set /*, get , reset*/ }, val) => {
-		set(starredCatsState, val)
+		set(favouritesState, val)
 	},
 })
 
-export default starredCatsSelector
+export default favouritesSelector

@@ -1,11 +1,11 @@
-import Cats from '../components/Cats'
+import Images from '../components/Images'
 import Filters from '../components/Filters'
 
 const Home = () => {
 	return (
 		<>
 			<Filters />
-			<Cats />
+			<Images />
 		</>
 	)
 }

@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { StarredCat } from '../types/types'
-import useGetStarredCats from '../hooks/useGetStarredCats'
+import { Favourite } from '../types/types'
+import useGetFavourites from '../hooks/useGetFavourites'
 
-const Starred: FC = () => {	
-	const [starredCats, error, isLoading] = useGetStarredCats()
+const Favourites: FC = () => {
+	const [favourites, error, isLoading] = useGetFavourites()
 
 	if (isLoading) {
 		return (
@@ -25,15 +25,15 @@ const Starred: FC = () => {
 		<div className="page">
 			<div className="container">
 				<section className="card__wrap--outer">
-					{starredCats.map((starredCat: StarredCat) => (
+					{favourites.map((favourite: Favourite) => (
 						<article
 							className="card__wrap--inner"
-							key={starredCat.id}
+							key={favourite.id}
 						>
 							<div className="card">
 								<img
 									alt=""
-									src={starredCat.image.url}
+									src={favourite.image.url}
 									width="10%"
 									height="10%"
 								/>
@@ -46,4 +46,4 @@ const Starred: FC = () => {
 	)
 }
 
-export default Starred
+export default Favourites

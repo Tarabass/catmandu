@@ -1,26 +1,26 @@
 import { useSetRecoilState, useRecoilValue } from 'recoil'
-import starredCatsSelector from '../state/selectors/starredCatsSelector'
-import { StarredCat } from '../types/types'
+import favouritesSelector from '../state/selectors/favouritesSelector'
+import { Favourite } from '../types/types'
 import axios, { AxiosResponse } from 'axios'
 
-const useSetCatStarred: Function = () => {
-	const setStarredCats = useSetRecoilState(starredCatsSelector)
+const useSetImageFavourite: Function = () => {
+	const setFavourites = useSetRecoilState(favouritesSelector)
 	// TODO: We should use a recoil callback here to get values without subscribing to the component
-	const starredCats = useRecoilValue(starredCatsSelector)
+	const favourites = useRecoilValue(favouritesSelector)
 
-	const updateCat = async (catId: String, isStarred: Boolean) => {
+	const updateImage = async (imageId: String, isFavourite: Boolean) => {
 		const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
 		const apiKey = process.env.REACT_APP_API_KEY
 		const subId = process.env.REACT_APP_SUB_ID
 		let resp: AxiosResponse<any, any> = {} as AxiosResponse<any, any>
 
 		try {
-			if (!isStarred) {
-				// Add cat to favourites
+			if (!isFavourite) {
+				// Add image to favourites
 				const response = await axios.post(
 					url,
 					{
-						image_id: catId,
+						image_id: imageId,
 						sub_id: subId,
 					},
 					{
@@ -48,7 +48,7 @@ const useSetCatStarred: Function = () => {
 							params: {
 								favourite_id: newId,
 								sub_id: subId,
-								image_id: catId,
+								image_id: imageId,
 							},
 						})
 						.then((res) => {
@@ -57,7 +57,7 @@ const useSetCatStarred: Function = () => {
 								res.status === 200 &&
 								res.statusText === 'OK'
 							) {
-								setStarredCats((current) => [
+								setFavourites((current) => [
 									...current,
 									res.data[0],
 								])
@@ -67,14 +67,15 @@ const useSetCatStarred: Function = () => {
 						})
 				}
 			} else {
-				const starredCat: StarredCat | undefined = starredCats.find(
-					(starredCat) => starredCat.image_id === catId
-				)
+				const favouriteImage: Favourite | undefined =
+					favourites.find(
+						(favouriteImage) => favouriteImage.image_id === imageId
+					)
 
-				// Remove cat from favourites
-				if (starredCat)
+				// Remove image from favourites
+				if (favouriteImage)
 					await axios
-						.delete(`${url}/${starredCat.id}`, {
+						.delete(`${url}/${favouriteImage.id}`, {
 							headers: {
 								'Content-Type': 'application/json',
 								'x-api-key': apiKey,
@@ -86,9 +87,10 @@ const useSetCatStarred: Function = () => {
 								res.status === 200 &&
 								res.statusText === 'OK'
 							) {
-								setStarredCats(() =>
-									starredCats.filter(
-										(cat) => cat.id !== starredCat.id
+								setFavourites(() =>
+									favourites.filter(
+										(image) =>
+											image.id !== favouriteImage.id
 									)
 								)
 
@@ -104,7 +106,7 @@ const useSetCatStarred: Function = () => {
 		}
 	}
 
-	return updateCat
+	return updateImage
 }
 
-export default useSetCatStarred
+export default useSetImageFavourite

@@ -26,7 +26,7 @@ export type Breed = {
 	// 	width: number
 	// 	height: number
 	// }
-	image: Cat
+	image: Image
 }
 
 export type Category = {
@@ -46,10 +46,10 @@ export type Vote = {
 	// 	id: string
 	// 	url: string
 	// }
-	image: Cat
+	image: Image
 }
 
-export type StarredCat = {
+export type Favourite = {
 	id: number
 	user_id: string
 	image_id: string
@@ -59,10 +59,10 @@ export type StarredCat = {
 	// 	id: string
 	// 	url: string
 	// }
-	image: Cat
+	image: Image
 }
 
-export type Cat = {
+export type Image = {
 	id: string
 	url: string
 	width: number
@@ -70,11 +70,11 @@ export type Cat = {
 	breeds: Array<Breed>
 }
 
-export type UploadedCat = Cat & {
+export type UploadedImage = Image & {
 	breed_ids: string
 	created_at: string
 	original_filename: string
 	sub_id: string
 	vote: Vote
-	favourite: StarredCat
+	favourite: Favourite
 }
