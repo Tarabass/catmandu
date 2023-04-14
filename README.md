@@ -67,4 +67,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Fix TS ignore TODO's
 - Change flow of selector api call and hooks (investicate best practice)
 - Extract headers config for API calls (DRY)
+- Implement Client library from Cat Api (https://github.com/thatapicompany/thecatapi)
   
