@@ -38,3 +38,22 @@ export type StarredCat = {
 		url: string
 	}
 }
+
+export type UploadedCat = {
+	breeds_ids: string
+	breeds: Array<Object>
+	created_at: string
+	favourite: {
+		id: string
+	}
+	height: number
+	id: string
+	original_filename: string
+	sub_id: string
+	url: string
+	vote: {
+		id: string
+		value: number
+	}
+	width: number
+}

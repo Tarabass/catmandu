@@ -45,9 +45,7 @@ const starredCatsSelector = selector<Array<StarredCat>>({
 
 		// return fetchData()
 	},
-	set: ({ set, get /*, reset*/ }, val) => {
-		// TODO: Make typescript happy
-		//@ts-ignore
+	set: ({ set /*, get , reset*/ }, val) => {
 		set(starredCatsState, val)
 	},
 })
