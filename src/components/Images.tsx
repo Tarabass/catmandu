@@ -35,7 +35,7 @@ const Images: FC = () => {
 								image={image}
 								isFavourite={favourites.some(
 									(favourite: Favourite) =>
-										favourites.image_id === image.id
+										favourite.image_id === image.id
 								)}
 							/>
 						))}
