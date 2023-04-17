@@ -13,23 +13,21 @@ const BreedsFilter: FC<FilterProps> = ({ field }) => {
 	}
 
 	return (
-		<div>
-			<select
-				id={field}
-				name={field}
-				value={filter['breed_ids']}
-				onChange={onChange}
-			>
-				<option defaultValue={0} value={''}>
-					Select a breed
+		<select
+			id={field}
+			name={field}
+			value={filter['breed_ids']}
+			onChange={onChange}
+		>
+			<option defaultValue={0} value={''}>
+				Select a breed
+			</option>
+			{breeds.map((breed) => (
+				<option key={breed.id} value={breed.id}>
+					{breed.name}
 				</option>
-				{breeds.map((breed) => (
-					<option key={breed.id} value={breed.id}>
-						{breed.name}
-					</option>
-				))}
-			</select>
-		</div>
+			))}
+		</select>
 	)
 }
 
