@@ -1,12 +1,12 @@
 import { FC } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import filterState from '../state/atoms/filterState'
-import useGetBreeds from '../hooks/useGetBreeds'
 import { FilterProps } from '../types/types'
+import breedsSelector from '../state/selectors/breedsSelector'
 
 const BreedsFilter: FC<FilterProps> = ({ field }) => {
 	const [filter, setFilter] = useRecoilState(filterState)
-	const { breeds } = useGetBreeds()
+	const breeds = useRecoilValue(breedsSelector)
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setFilter({ ...filter, page: 0, [field]: event.target.value })
@@ -23,9 +23,9 @@ const BreedsFilter: FC<FilterProps> = ({ field }) => {
 				<option defaultValue={0} value={''}>
 					Select a breed
 				</option>
-				{breeds.map((option) => (
-					<option key={option.id} value={option.id}>
-						{option.name}
+				{breeds.map((breed) => (
+					<option key={breed.id} value={breed.id}>
+						{breed.name}
 					</option>
 				))}
 			</select>
