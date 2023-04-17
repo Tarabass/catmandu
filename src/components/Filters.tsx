@@ -7,9 +7,11 @@ import OrderFilter from './OrderFilter'
 const Filters: FC = () => {
 	return (
 		<div className="filters">
-			<Suspense fallback={<div>Loading...</div>}>
-				<BreedsFilter field="breed_ids" />
-			</Suspense>
+			<div>
+				<Suspense fallback={<>Loading...</>}>
+					<BreedsFilter field="breed_ids" />
+				</Suspense>
+			</div>
 			<OrderFilter field="order" />
 			<LimitFilter field="limit" />
 			<PageFilter field="page" />
