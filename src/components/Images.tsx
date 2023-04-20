@@ -1,8 +1,7 @@
 import { FC } from 'react'
-import { Image, Favourite } from '../types/types'
-import ImageArticle from './ImageArticle'
-import useGetFavourites from '../hooks/useGetFavourites'
 import { useRecoilValue } from 'recoil'
+import ImageArticle from './ImageArticle'
+import { Image } from '../types/types'
 import imagesState from '../state/atoms/imagesState'
 
 const Images: FC = () => {
@@ -13,15 +12,7 @@ const Images: FC = () => {
 			<div className="container">
 				<section className="card__wrap--outer">
 					{images.map((image: Image) => (
-						<ImageArticle
-							key={image.id}
-							image={image}
-							isFavourite={false}
-							// isFavourite={favourites.some(
-							// 	(favourite: Favourite) =>
-							// 		favourite.image_id === image.id
-							// )}
-						/>
+						<ImageArticle key={image.id} image={image} />
 					))}
 				</section>
 			</div>

@@ -1,25 +1,40 @@
-import { FC, useState } from 'react'
-import { Image } from '../types/types'
-import useSetImageFavourite from '../hooks/useSetFavourites'
+import { FC, useEffect, useState } from 'react'
+import { Favourite, Image } from '../types/types'
+import { useRecoilCallback } from 'recoil'
+import favouritesState from '../state/atoms/favouritesState'
+import useSetImageFavourite from '../hooks/useSetImageFavourite'
 
 type ImageArticleProps = {
 	image: Image
-	isFavourite: Boolean
 }
 
-const ImageArticle: FC<ImageArticleProps> = ({ image, isFavourite }) => {
-	const [isFavouriteImage, setIsFavouriteImage] = useState(isFavourite)
-	const setImageFavourite = useSetImageFavourite()
+const ImageArticle: FC<ImageArticleProps> = ({ image }) => {
+	const [isFavouriteImage, setIsFavouriteImage] = useState(Boolean)
+	const checkIfImageIsFavourite = useRecoilCallback(
+		({ snapshot }) =>
+			async () => {
+				const favourites = await snapshot.getPromise(favouritesState)
+
+				setIsFavouriteImage(
+					favourites.some(
+						(favourite: Favourite) =>
+							favourite.image_id === image.id
+					)
+				)
+			},
+		[]
+	)
+	const setFavourite = useSetImageFavourite()
+
+	useEffect(() => {
+		checkIfImageIsFavourite()
+	}, [image, checkIfImageIsFavourite])
 
 	const onClick = () => {
 		setIsFavouriteImage(!isFavouriteImage)
-
-		setImageFavourite(image.id, isFavouriteImage)
-			.then((res: Object) => console.log('res', res))
-			.catch((err: String) => {
-				console.log('err', err)
-				setIsFavouriteImage(isFavouriteImage)
-			})
+		setFavourite(image.id, isFavouriteImage).catch((err: String) => {
+			setIsFavouriteImage(isFavouriteImage)
+		})
 	}
 
 	return (
@@ -35,7 +50,9 @@ const ImageArticle: FC<ImageArticleProps> = ({ image, isFavourite }) => {
 				<div className="card__footer">
 					<span
 						className={
-							isFavouriteImage ? 'is-favourite' : 'is-not-favourite'
+							isFavouriteImage
+								? 'is-favourite'
+								: 'is-not-favourite'
 						}
 						onClick={onClick}
 					></span>
