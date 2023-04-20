@@ -123,6 +123,7 @@ small {
 	border-top: 1px solid #dedede;
 	background-color: #d3de29;
 	text-align: center;
+	height: 20px;
 }
 
 /*Card Flex Code*/
@@ -174,4 +175,24 @@ small {
 
 .is-not-favourite:after {
 	content: '\2606';
+}
+
+.is-loading:after {
+	content: '';
+	width: 14px;
+	height: 14px;
+	border: 3px solid #fff;
+	border-bottom-color: #4fbc61;
+	border-radius: 50%;
+	display: inline-block;
+	animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

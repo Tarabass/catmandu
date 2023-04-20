@@ -1,6 +1,6 @@
 import { selector } from 'recoil'
+import axios from 'axios'
 import { Favourite } from '../../types/types'
-import favouritesState from '../atoms/favouritesState'
 
 /**
  * Be aware that Recoil will cache your selector values, so asynchronous
@@ -16,37 +16,36 @@ import favouritesState from '../atoms/favouritesState'
 const favouritesSelector = selector<Array<Favourite>>({
 	key: 'favouritesSelector',
 	get: async ({ get }) => {
-		// TODO: Feels like an hack to update the state and components because we are not using the atom anywhere
-		return get(favouritesState)
+		const limit = 25
+		let page = 0
+		let total = 0
+		let data = new Array<Favourite>()
 
-		// const fetchData = async () => {
-		// 	try {
-		// 		const res = await axios.get(
-		// 			`${process.env.REACT_APP_API_ENDPOINT}/favourites`,
-		// 			{
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					'x-api-key': process.env.REACT_APP_API_KEY,
-		// 				},
-		// 				params: {
-		// 					limit: 10,
-		// 					sub_id: process.env.REACT_APP_SUB_ID,
-		// 					order: 'DESC',
-		// 				},
-		// 			}
-		// 		)
+		while (page <= Math.round(total / limit)) {
+			const url = `${process.env.REACT_APP_API_ENDPOINT}/favourites`
+			const apiKey = process.env.REACT_APP_API_KEY
+			const subId = process.env.REACT_APP_SUB_ID
+			const response = await axios.get(`${url}`, {
+				headers: {
+					'Content-Type': 'application/json',
+					'x-api-key': apiKey,
+				},
+				params: {
+					sub_id: subId,
+					limit: limit,
+					page: page,
+				},
+			})
 
-		// 		return res.data || []
-		// 	} catch (error) {
-		// 		// Handle errors
-		// 		throw error
-		// 	}
-		// }
+			data.push(...response.data)
+			total = response.headers['pagination-count']
+			page++
+		}
 
-		// return fetchData()
+		return data
 	},
-	set: ({ set /*, get , reset*/ }, val) => {
-		set(favouritesState, val)
+	set: ({ set, get /*, reset*/ }, val) => {
+		console.log('favouritesSelector setter', val)
 	},
 })
 
