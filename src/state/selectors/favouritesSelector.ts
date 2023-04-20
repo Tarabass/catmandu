@@ -16,7 +16,7 @@ import { Favourite } from '../../types/types'
 const favouritesSelector = selector<Array<Favourite>>({
 	key: 'favouritesSelector',
 	get: async ({ get }) => {
-		const limit = 50
+		const limit = 25
 		let page = 0
 		let total = 0
 		let data = new Array<Favourite>()

@@ -3,6 +3,7 @@ import { Favourite, Image } from '../types/types'
 import { useRecoilCallback } from 'recoil'
 import favouritesState from '../state/atoms/favouritesState'
 import useSetImageFavourite from '../hooks/useSetImageFavourite'
+import classNames from 'classnames'
 
 type ImageArticleProps = {
 	image: Image
@@ -10,10 +11,12 @@ type ImageArticleProps = {
 
 const ImageArticle: FC<ImageArticleProps> = ({ image }) => {
 	const [isFavouriteImage, setIsFavouriteImage] = useState(Boolean)
+	const [isLoading, setIsLoading] = useState(true)
 	const checkIfImageIsFavourite = useRecoilCallback(
 		({ snapshot }) =>
 			async () => {
 				const favourites = await snapshot.getPromise(favouritesState)
+				setIsLoading(false)
 
 				setIsFavouriteImage(
 					favourites.some(
@@ -49,11 +52,11 @@ const ImageArticle: FC<ImageArticleProps> = ({ image }) => {
 				<div className="card__item flexible"></div>
 				<div className="card__footer">
 					<span
-						className={
-							isFavouriteImage
-								? 'is-favourite'
-								: 'is-not-favourite'
-						}
+						className={classNames({
+							'is-favourite': isFavouriteImage && !isLoading,
+							'is-not-favourite': !isFavouriteImage && !isLoading,
+							'is-loading': isLoading,
+						})}
 						onClick={onClick}
 					></span>
 				</div>

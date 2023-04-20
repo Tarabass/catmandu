@@ -5,7 +5,6 @@ import favouritesState from '../state/atoms/favouritesState'
 import { useRef } from 'react'
 
 const useSetImageFavourite: Function = () => {
-	// const [favourites, setFavourite] = useState(Array<Favourite>)
 	const favouritesArray = useRef(new Array<Favourite>())
 	const setFavourites = useSetRecoilState(favouritesState)
 	// TODO: We should use a recoil callback here to get values without subscribing to the component
