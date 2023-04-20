@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { UploadedImage } from '../types/types'
+import Loader from './Loader'
 
 type UploadedImagesProps = {
 	uploadedImages: Array<UploadedImage>
@@ -11,7 +12,7 @@ const UploadedImages: FC<UploadedImagesProps> = ({
 	isLoading,
 }) => {
 	if (isLoading) {
-		return <div>Fetching images..</div>
+		return <Loader />
 	}
 
 	if (!isLoading) {
