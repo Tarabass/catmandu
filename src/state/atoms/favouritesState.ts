@@ -1,11 +1,10 @@
 import { atom } from 'recoil'
 import { Favourite } from '../../types/types'
+import favouritesSelector from '../selectors/favouritesSelector'
 
-type Favourites = Array<Favourite>
-
-const favouritesState = atom<Favourites>({
+const favouritesState = atom<Array<Favourite>>({
 	key: 'favouritesState',
-	default: new Array<Favourite>(),
+	default: favouritesSelector,
 })
 
 export default favouritesState

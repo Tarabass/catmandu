@@ -1,11 +1,14 @@
 import Images from '../components/Images'
 import Filters from '../components/Filters'
+import { Suspense } from 'react'
 
 const Home = () => {
 	return (
 		<>
 			<Filters />
-			<Images />
+			<Suspense fallback={<div>Loading..</div>}>
+				<Images />
+			</Suspense>
 		</>
 	)
 }
