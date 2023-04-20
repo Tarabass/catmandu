@@ -3,12 +3,13 @@ import BreedsFilter from './BreedsFilter'
 import LimitFilter from './LimitFilter'
 import PageFilter from './PageFilter'
 import OrderFilter from './OrderFilter'
+import Loader from './Loader'
 
 const Filters: FC = () => {
 	return (
 		<div className="filters">
 			<div>
-				<Suspense fallback={<>Loading...</>}>
+				<Suspense fallback={<Loader />}>
 					<BreedsFilter field="breed_ids" />
 				</Suspense>
 			</div>
