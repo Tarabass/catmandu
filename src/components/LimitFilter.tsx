@@ -8,8 +8,10 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		// TODO: Set page given on current limit settings
-		setFilter({ ...filter, [field]: event.target.value })
-		// onUpdate()
+		setFilter({
+			...filter,
+			pagination: { ...filter.pagination, [field]: event.target.value },
+		})
 	}
 
 	return (
@@ -21,7 +23,7 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 				type="number"
 				min="1"
 				max="10"
-				value={filter['limit']}
+				value={filter.pagination['limit']}
 				onChange={onChange}
 			/>
 		</div>

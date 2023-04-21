@@ -1,8 +1,7 @@
 export type Filter = {
-	limit: number
-	page: number
 	order: string
 	breed_ids: string
+	pagination: Pagination
 }
 
 export type FilterProps = {
@@ -77,4 +76,15 @@ export type UploadedImage = Image & {
 	sub_id: string
 	vote: Vote
 	favourite: Favourite
+}
+
+export type Pagination = {
+	count: number
+	limit: number
+	page: number
+}
+
+export type SearchResult = {
+	pagination: Pagination
+	images: Array<Image>
 }

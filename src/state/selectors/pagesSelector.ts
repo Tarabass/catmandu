@@ -1,19 +1,17 @@
 import { selector } from 'recoil'
-import filterState from '../atoms/filterState'
+import searchState from '../atoms/searchState'
 
-const pagesSelector = selector<Array<Number>>({
+const pagesSelector = selector<Array<number>>({
 	key: 'pagesSelector',
-    //@ts-ignore
 	get: ({ get }) => {
-		const totalCount = localStorage.getItem('count')
-		const filter = get(filterState)
+		const searchResult = get(searchState)
+		const totalCount = searchResult.pagination.count
 		const totalPages = Math.ceil(
-			(totalCount ? +totalCount : 0) / filter.limit
+			(totalCount ? +totalCount : 0) / searchResult.pagination.limit
 		)
-		const pages = []
+		const pages = new Array<number>()
 
-		for (let i = 0; i < totalPages; i++)
-			pages.push(i)
+		for (let i = 0; i < totalPages; i++) pages.push(i)
 
 		return pages
 	},

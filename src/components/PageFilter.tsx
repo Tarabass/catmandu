@@ -1,38 +1,36 @@
 import { FC } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import filterState from '../state/atoms/filterState'
-import useGetCount from '../hooks/useGetCount'
 import { FilterProps } from '../types/types'
+import pagesSelector from '../state/selectors/pagesSelector'
 
 const PageFilter: FC<FilterProps> = ({ field }) => {
 	const [filter, setFilter] = useRecoilState(filterState)
-	const { count } = useGetCount()
-	const totalPages = Math.ceil(count / filter.limit)
-	const options = []
-
-	for (let i = 0; i < totalPages; i++) 
-		options.push({ value: i, label: i + 1 })
+	const pages = useRecoilValue(pagesSelector)
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setFilter({ ...filter, [field]: event.target.value })
+		setFilter({
+			...filter,
+			pagination: { ...filter.pagination, [field]: event.target.value },
+		})
 	}
 
 	return (
-		<div>
+		<>
 			<label htmlFor={field}>{field.toUpperCase()}: </label>
 			<select
 				id={field}
 				name={field}
-				value={filter.page}
+				value={filter.pagination.page}
 				onChange={onChange}
 			>
-				{options.map((option) => (
-					<option key={option.value} value={option.value}>
-						{option.label}
+				{pages.map((page) => (
+					<option key={page} value={page}>
+						{page + 1}
 					</option>
 				))}
 			</select>
-		</div>
+		</>
 	)
 }
 

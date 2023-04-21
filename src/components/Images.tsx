@@ -1,17 +1,21 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import ImageArticle from './ImageArticle'
 import { Image } from '../types/types'
-import imagesState from '../state/atoms/imagesState'
+import searchState from '../state/atoms/searchState'
 
 const Images: FC = () => {
-	const images = useRecoilValue(imagesState)
+	const searchResult = useRecoilValue(searchState)
+
+	useEffect(() => {
+		console.log('searchResult updated, place to update other atoms?')
+	}, [searchResult])
 
 	return (
 		<div className="page">
 			<div className="container">
 				<section className="card__wrap--outer">
-					{images.map((image: Image) => (
+					{searchResult.images.map((image: Image) => (
 						<ImageArticle key={image.id} image={image} />
 					))}
 				</section>
