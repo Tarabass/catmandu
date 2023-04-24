@@ -9,7 +9,11 @@ const BreedsFilter: FC<FilterProps> = ({ field }) => {
 	const breeds = useRecoilValue(breedsSelector)
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setFilter({ ...filter, page: 0, [field]: event.target.value })
+		setFilter({
+			...filter,
+			pagination: { ...filter.pagination, page: 0 },
+			[field]: event.target.value,
+		})
 	}
 
 	return (

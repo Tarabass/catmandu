@@ -44,9 +44,6 @@ const favouritesSelector = selector<Array<Favourite>>({
 
 		return data
 	},
-	set: ({ set, get /*, reset*/ }, val) => {
-		console.log('favouritesSelector setter', val)
-	},
 })
 
 export default favouritesSelector

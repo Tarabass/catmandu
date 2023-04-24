@@ -8,7 +8,10 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 	const limitArray = [5, 10, 25]
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setFilter({ ...filter, [field]: event.target.value })
+		setFilter({
+			...filter,
+			pagination: { ...filter.pagination, [field]: event.target.value },
+		})
 	}
 
 	return (
@@ -16,7 +19,7 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 			<select
 				id={field}
 				name={field}
-				value={filter['limit']}
+				value={filter.pagination['limit']}
 				onChange={onChange}
 			>
 				{limitArray.map((limit) => (

@@ -1,10 +1,10 @@
 import { atom } from 'recoil'
 import { Image } from '../../types/types'
-import imagesSelectorFamily from '../selectors/imagesSelector'
+import imagesSelector from '../selectors/imagesSelector'
 
 const imagesState = atom<Array<Image>>({
 	key: 'imageState',
-	default: imagesSelectorFamily,
+	default: imagesSelector,
 })
 
 export default imagesState
