@@ -1,10 +1,10 @@
 import { selector } from 'recoil'
 import axios from 'axios'
+import { SearchResult } from '../../types/types'
 import filterState from '../atoms/filterState'
-import { Image } from './../../types/types'
 
-const imagesSelector = selector<Array<Image>>({
-	key: 'imagesSelector',
+const searchSelector = selector<SearchResult>({
+	key: 'searchSelector',
 	get: async ({ get }) => {
 		const filter = get(filterState)
 		const url = `${process.env.REACT_APP_API_ENDPOINT}/images/search`
@@ -23,8 +23,15 @@ const imagesSelector = selector<Array<Image>>({
 			},
 		})
 
-		return response.data || []
+		return {
+			pagination: {
+				count: response.headers['pagination-count'],
+				limit: response.headers['pagination-limit'],
+				page: response.headers['pagination-page'],
+			},
+			images: response.data || [],
+		}
 	},
 })
 
-export default imagesSelector
+export default searchSelector
