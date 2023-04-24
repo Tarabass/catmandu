@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import filterState from '../state/atoms/filterState'
 import { FilterProps } from '../types/types'
@@ -16,21 +16,18 @@ const PageFilter: FC<FilterProps> = ({ field }) => {
 	}
 
 	return (
-		<>
-			<label htmlFor={field}>{field.toUpperCase()}: </label>
-			<select
-				id={field}
-				name={field}
-				value={filter.pagination.page}
-				onChange={onChange}
-			>
-				{pages.map((page) => (
-					<option key={page} value={page}>
-						{page + 1}
-					</option>
-				))}
-			</select>
-		</>
+		<select
+			id={field}
+			name={field}
+			value={filter.pagination.page}
+			onChange={onChange}
+		>
+			{pages.map((page) => (
+				<option key={page} value={page}>
+					{page + 1}
+				</option>
+			))}
+		</select>
 	)
 }
 

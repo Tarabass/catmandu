@@ -15,7 +15,8 @@ const Filters: FC = () => {
 			<OrderFilter field="order" />
 			<LimitFilter field="limit" />
 			<div>
-				<Suspense fallback={'Loading..'}>
+				<label htmlFor={'page'}>{'page'.toUpperCase()}: </label>
+				<Suspense fallback={<select><option>0</option></select>}>
 					<PageFilter field="page" />
 				</Suspense>
 			</div>
