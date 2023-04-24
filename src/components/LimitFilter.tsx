@@ -21,9 +21,10 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 				name={field}
 				value={filter.pagination['limit']}
 				onChange={onChange}
+				defaultValue={10}
 			>
 				{limitArray.map((limit) => (
-					<option key={limit} value={limit} selected={limit === 10}>
+					<option key={limit} value={limit}>
 						{limit}
 					</option>
 				))}
