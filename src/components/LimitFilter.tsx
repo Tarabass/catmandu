@@ -15,20 +15,13 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 	}
 
 	return (
-		<div>
-			<select
-				id={field}
-				name={field}
-				onChange={onChange}
-				defaultValue={10}
-			>
-				{limitArray.map((limit) => (
-					<option key={limit} value={limit}>
-						{limit}
-					</option>
-				))}
-			</select>
-		</div>
+		<select id={field} name={field} onChange={onChange} defaultValue={10}>
+			{limitArray.map((limit) => (
+				<option key={limit} value={limit}>
+					{limit}
+				</option>
+			))}
+		</select>
 	)
 }
 
