@@ -19,7 +19,6 @@ const LimitFilter: FC<FilterProps> = ({ field }) => {
 			<select
 				id={field}
 				name={field}
-				value={filter.pagination['limit']}
 				onChange={onChange}
 				defaultValue={10}
 			>
